@@ -1,4 +1,10 @@
 package com.wwh.arithmetic;
+
+import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.Deque;
+import java.util.List;
+
 public class TreeNode {
     int val;
     TreeNode left;
@@ -20,5 +26,36 @@ class Solution1 {
         }
         // 否则返回非空的那个子树的结果
         return left != null? left : right;
+    }
+}
+//二叉树的右视图
+class Solution {
+    public List<Integer> rightSideView(TreeNode root) {
+        Deque<TreeNode> queue = new ArrayDeque<>();
+        //层序遍历
+        List<Integer> result = new ArrayList<>();
+        if (root == null) {
+            return result;
+        }
+        queue.offer(root);
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+            for (int i = 0; i < size; i++) {
+                TreeNode currentNode = queue.poll();
+                // 如果当前节点有左子节点，先加入左子节点
+                if (currentNode.left != null) {
+                    queue.offer(currentNode.left);
+                }
+                // 如果当前节点有右子节点，加入右子节点
+                if (currentNode.right != null) {
+                    queue.offer(currentNode.right);
+                }
+                // 如果是当前层的最后一个节点，加入结果集
+                if (i == size - 1) {
+                    result.add(currentNode.val);
+                }
+            }
+        }
+        return result;
     }
 }
