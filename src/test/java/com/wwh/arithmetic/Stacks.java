@@ -1,7 +1,8 @@
 package com.wwh.arithmetic;
 
+import java.util.Deque;
+import java.util.LinkedList;
 import java.util.Scanner;
-import java.util.Stack;
 
 class Solution {
     class Day{
@@ -14,7 +15,7 @@ class Solution {
     }
     public int[] dailyTemperatures(int[] temperatures) {
         //单调栈
-        Stack<Day> stack = new Stack<>();
+        Deque<Day> stack = new LinkedList<>();
         int len = temperatures.length;
         stack.push(new Day(0, temperatures[0]));
         //结果数组
