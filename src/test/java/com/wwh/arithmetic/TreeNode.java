@@ -29,7 +29,7 @@ class Solution1 {
     }
 }
 //二叉树的右视图
-class Solution {
+class Solution2 {
     public List<Integer> rightSideView(TreeNode root) {
         Deque<TreeNode> queue = new ArrayDeque<>();
         //层序遍历
@@ -57,5 +57,30 @@ class Solution {
             }
         }
         return result;
+    }
+}
+//将二叉树展开为链表
+class Solution {
+    public void flatten(TreeNode root) {
+    //展开后的单链表应该与二叉树 先序遍历 顺序相同。
+    //展开后的单链表应该同样使用 TreeNode ，其中 right 子指针指向链表中下一个结点，而左子指针始终为 null。
+        if (root == null) {
+            return;
+        }
+        // 先序遍历
+        flatten(root.left);
+        flatten(root.right);
+        if (root.left!=null) {
+            TreeNode rightSubtree = root.right; // 保存右子树
+            root.right = root.left; // 将左子树连接到右子树
+            root.left = null; // 将左子树置为 null
+            // 找到新的右子树的末尾
+            TreeNode current = root.right;
+            while (current.right != null) {
+                current = current.right;
+            }
+            // 将原来的右子树连接到新的右子树末尾
+            current.right = rightSubtree;
+        }
     }
 }
