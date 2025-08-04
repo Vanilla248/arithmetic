@@ -1,13 +1,16 @@
 package com.wwh.arithmetic;
 
+import java.util.*;
+
 public class ListNode {
     int val;
     ListNode next;
+    ListNode random;
     ListNode() {}
     ListNode(int val) { this.val = val; }
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 }
-class Solution {
+class Solution1 {
     public ListNode swapPairs(ListNode head) {
     if (head == null || head.next == null) {
             return head;
@@ -30,5 +33,74 @@ class Solution {
             secListNode = nextSec;
         }
         return ans;
+    }
+}
+
+class Solution2 {
+    public ListNode copyRandomList(ListNode head) {
+        Map<ListNode, ListNode> map = new HashMap<>();
+        ListNode current = head;
+        // 第一次遍历，复制节点并建立映射
+        while (current != null) {
+            map.put(current, new ListNode(current.val));
+            current = current.next;
+        }
+        current = head;
+        // 第二次遍历，设置 next 和 random 指针
+        while (current != null) {
+            ListNode newNode = map.get(current);
+            newNode.next = map.get(current.next);
+            newNode.random = map.get(current.random);
+            current = current.next;
+        }
+        return map.get(head); // 返回新链表的头节点
+    }
+}
+
+class Solution {
+    public ListNode sortList(ListNode head) {
+        return sortList(head,null);
+    }
+    public ListNode sortList(ListNode head, ListNode tail){
+        if (head == null) {
+            return head;
+        }
+        if (head.next == tail) {
+            head.next = null;
+            return head;
+        }
+        ListNode slow = head, fast = head;
+        // 使用快慢指针找到中间节点
+        while (fast != tail && fast.next != tail) {
+            slow = slow.next;
+            fast = fast.next;
+            if (fast.next != tail) {
+                fast = fast.next;
+            }
+        }
+        ListNode mid = slow;
+        ListNode left = sortList(head, mid); // 对左半部分排序
+        ListNode right = sortList(mid, tail); // 对右半部分排序
+        return merge(left, right); // 合并两个已排序的链表
+    }
+    public ListNode merge(ListNode head1, ListNode head2){
+        ListNode dummy = new ListNode(0);
+        ListNode current = dummy;
+        while (head1 != null && head2 != null) {
+            if (head1.val < head2.val) {
+                current.next = head1;
+                head1 = head1.next;
+            } else {
+                current.next = head2;
+                head2 = head2.next;
+            }
+            current = current.next;
+        }
+        if (head1 != null) {
+            current.next = head1;
+        } else {
+            current.next = head2;
+        }
+        return dummy.next; // 返回合并后的链表头节点
     }
 }
