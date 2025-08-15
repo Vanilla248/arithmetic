@@ -4,7 +4,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-class Solution {
+class Solution1 {
     class Day{
         int index;
         int temperature;
@@ -31,15 +31,31 @@ class Solution {
         return result;
     }
 }
-public class Stacks {
-    public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
-        int input = scanner.nextInt();
-        Solution solution = new Solution();
-        int[] temperatures = {30, 40, 50, 60};
-        int[] result = solution.dailyTemperatures(temperatures);
-        for (int temp : result) {
-            System.out.print(temp + " ");
+class Solution {
+    public String decodeString(String s) {
+        Deque<Integer> countStack = new LinkedList<>();
+        Deque<StringBuilder> stringStack = new LinkedList<>();
+        StringBuilder currentString = new StringBuilder();
+        int count = 0;
+        for (char c : s.toCharArray()) {
+            if (Character.isDigit(c)) {
+                count = count * 10 + (c - '0');
+            }else if (c == '[') {
+                countStack.push(count);
+                stringStack.push(currentString);
+                currentString = new StringBuilder();
+                count = 0;
+            }else if (c == ']') {
+                StringBuilder previousStringBuilder = stringStack.pop();
+                int repeatTimes = countStack.pop();
+                for (int i = 0; i < repeatTimes; i++) {
+                    previousStringBuilder.append(currentString);
+                }
+                currentString = previousStringBuilder;
+            }else {
+                currentString.append(c);
+            }
         }
+        return currentString.toString();
     }
 }
