@@ -3,9 +3,6 @@ package com.wwh.arithmetic;
 import java.util.*;
 
 public class SortUtils {
-    
-}
-class Solution1 {
     /**
      * 找出数组中出现频率前 k 高的元素
      * @param nums 整数数组
@@ -24,7 +21,7 @@ class Solution1 {
         // PriorityQueue 默认是最小堆，我们自定义比较器，按 Map.Entry 的 value (频率) 升序排列
         // 这样堆顶始终是当前已遍历元素中频率最小的
         PriorityQueue<Map.Entry<Integer,Integer>> queue = new PriorityQueue<>(k+1, (a,b) -> a.getValue()-b.getValue());
-        
+
         // 遍历频率 Map
         for(Map.Entry<Integer, Integer> entry: frequencyMap.entrySet()){
             // 将键值对（元素-频率）加入队列
@@ -45,9 +42,7 @@ class Solution1 {
         }
         return result;
     }
-}
 
-class Solution2 {
     public int searchInsert(int[] nums, int target) {
         int start = 0, end = nums.length - 1;
         while (start <= end) {
@@ -63,9 +58,7 @@ class Solution2 {
         // 如果未找到目标值，返回插入位置
         return start; // 此时 start 即为目标值应插入的位置
     }
-}
 
-class Solution3 {
     public boolean searchMatrix(int[][] matrix, int target) {
         int m = matrix.length;
         if (m == 0) return false; // 如果矩阵为空，直接返回
@@ -84,9 +77,7 @@ class Solution3 {
         }
         return false; // 如果未找到目标值，返回 false
     }
-}
 
-class Solution4 {
     public int[] searchRange(int[] nums, int target) {
         // 给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。
 
@@ -123,9 +114,7 @@ class Solution4 {
         }
         return result; // 返回结果数组
     }
-}
 
-class Solution {
     public int search(int[] nums, int target) {
         int left = 0, right = nums.length - 1;
         while (left <= right) {

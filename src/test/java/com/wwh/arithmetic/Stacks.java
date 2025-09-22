@@ -4,7 +4,7 @@ import java.util.Deque;
 import java.util.LinkedList;
 import java.util.Scanner;
 
-class Solution1 {
+public class Stacks {
     class Day{
         int index;
         int temperature;
@@ -30,8 +30,7 @@ class Solution1 {
         }
         return result;
     }
-}
-class Solution {
+
     public String decodeString(String s) {
         Deque<Integer> countStack = new LinkedList<>();
         Deque<StringBuilder> stringStack = new LinkedList<>();

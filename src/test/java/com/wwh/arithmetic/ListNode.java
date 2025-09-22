@@ -10,7 +10,7 @@ public class ListNode {
     ListNode(int val) { this.val = val; }
     ListNode(int val, ListNode next) { this.val = val; this.next = next; }
 }
-class Solution1 {
+class ListNodeSolution {
     public ListNode swapPairs(ListNode head) {
     if (head == null || head.next == null) {
             return head;
@@ -34,9 +34,7 @@ class Solution1 {
         }
         return ans;
     }
-}
 
-class Solution2 {
     public ListNode copyRandomList(ListNode head) {
         Map<ListNode, ListNode> map = new HashMap<>();
         ListNode current = head;
@@ -55,9 +53,7 @@ class Solution2 {
         }
         return map.get(head); // 返回新链表的头节点
     }
-}
 
-class Solution {
     public ListNode sortList(ListNode head) {
         return sortList(head,null);
     }
@@ -104,7 +100,12 @@ class Solution {
         return dummy.next; // 返回合并后的链表头节点
     }
 }
-
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */
 class LRUCache {
 
     class DlinkedNode {
@@ -177,10 +178,3 @@ class LRUCache {
         return node;
     }
 }
-
-/**
- * Your LRUCache object will be instantiated and called as such:
- * LRUCache obj = new LRUCache(capacity);
- * int param_1 = obj.get(key);
- * obj.put(key,value);
- */

@@ -5,13 +5,12 @@ import java.util.Queue;
 
 public class Graph {
     public static void main(String[] args) {
-        Solution solution = new Solution();
+        Graph graph = new Graph();
         int[][] grid = {{2,1,1},{1,1,0},{0,1,1}};
-        System.out.println(solution.orangesRotting(grid));
+        System.out.println(graph.orangesRotting(grid));
     }
-}
-// 岛屿数量
-class Solution1 {
+
+    // 岛屿数量
     public int numIslands(char[][] grid) {
         int res = 0;
         for(int i=0;i<grid.length;i++){
@@ -37,9 +36,8 @@ class Solution1 {
     boolean inArea(char[][] grid, int r, int c){
         return r >= 0 && r < grid.length && c >= 0 && c < grid[0].length;
     }
-}
-// 烂橘子
-class Solution {
+
+    // 烂橘子
     public int orangesRotting(int[][] grid) {
         Queue<Point> queue = new ArrayDeque<>();
         int time = 0;

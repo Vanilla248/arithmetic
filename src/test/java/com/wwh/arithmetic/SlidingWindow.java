@@ -3,9 +3,6 @@ package com.wwh.arithmetic;
 import java.util.Set;
 
 public class SlidingWindow {
-    
-}
-class Solution {
     public int lengthOfLongestSubstring(String s) {
         Set<Character> set = new java.util.HashSet<>();
         int left = 0, right = 0, maxLength = 0;

@@ -11,8 +11,8 @@ public class TreeNode {
     TreeNode right;
     TreeNode(int x) { val = x; }
 }
-//寻找最二叉树最近公共祖先
-class Solution1 {
+class TreeNodeSolution {
+    //寻找最二叉树最近公共祖先
     public TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
         if (root==p||root==q||root==null) {
             return root;
@@ -27,9 +27,7 @@ class Solution1 {
         // 否则返回非空的那个子树的结果
         return left != null? left : right;
     }
-}
-//二叉树的右视图
-class Solution2 {
+    //二叉树的右视图
     public List<Integer> rightSideView(TreeNode root) {
         Deque<TreeNode> queue = new ArrayDeque<>();
         //层序遍历
@@ -58,12 +56,10 @@ class Solution2 {
         }
         return result;
     }
-}
-//将二叉树展开为链表
-class Solution {
+    //将二叉树展开为链表
     public void flatten(TreeNode root) {
-    //展开后的单链表应该与二叉树 先序遍历 顺序相同。
-    //展开后的单链表应该同样使用 TreeNode ，其中 right 子指针指向链表中下一个结点，而左子指针始终为 null。
+        //展开后的单链表应该与二叉树 先序遍历 顺序相同。
+        //展开后的单链表应该同样使用 TreeNode ，其中 right 子指针指向链表中下一个结点，而左子指针始终为 null。
         if (root == null) {
             return;
         }
