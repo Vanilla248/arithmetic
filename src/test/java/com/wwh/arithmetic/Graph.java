@@ -1,6 +1,8 @@
 package com.wwh.arithmetic;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Queue;
 
 public class Graph {
@@ -111,5 +113,38 @@ public class Graph {
             grid[x][y-1] = 2;
             queue.offer(new Point(x, y-1));
         }
+    }
+    // 课程表拓扑排序（广度优先搜索）
+    // 在选修某些课程之前需要一些先修课程。 先修课程按数组 prerequisites 给出，
+    // 其中 prerequisites[i] = [ai, bi] ，表示如果要学习课程 ai 则 必须 先学习课程  bi 。
+    public boolean canFinish(int numCourses, int[][] prerequisites) {
+        int[] indeg = new int[numCourses];
+        List<List<Integer>> edges = new ArrayList<>();
+        int visited = 0;
+        for (int i = 0; i < numCourses; i++) {
+            edges.add(new ArrayList<>());
+        }
+        for (int[] edge : prerequisites) {
+            edges.get(edge[1]).add(edge[0]);
+            indeg[edge[0]]++;
+        }
+        Queue<Integer> queue = new ArrayDeque<>();
+        for (int i = 0; i < numCourses; i++) {
+            if (indeg[i] == 0) {
+                queue.offer(i);
+            }
+        }
+        while(!queue.isEmpty()){
+            Integer poll = queue.poll();
+            visited++;
+            List<Integer> list = edges.get(poll);
+            for (Integer to : list) {
+                indeg[to]--;
+                if (indeg[to] == 0) {
+                    queue.offer(to);
+                }
+            }
+        }
+        return visited == numCourses;
     }
 }
