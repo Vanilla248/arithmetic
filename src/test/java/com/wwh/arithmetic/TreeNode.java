@@ -80,3 +80,53 @@ class TreeNodeSolution {
         }
     }
 }
+// 字典树
+class Trie {
+    private Trie[] children;
+    private boolean isEnd;
+
+    public Trie() {
+        children = new Trie[26];
+        isEnd = false;
+    }
+
+    public void insert(String word) {
+        Trie node = this;
+        for (char c : word.toCharArray()) {
+            int index = c - 'a';
+            if (node.children[index] == null) {
+                node.children[index] = new Trie();
+                node = node.children[index];
+            } else {
+                node = node.children[index];
+            }
+        }
+        node.isEnd = true;
+    }
+
+    public boolean search(String word) {
+        Trie node = this;
+        for (char c : word.toCharArray()) {
+            int index = c - 'a';
+            if (node.children[index] == null) {
+                return false;
+            } else {
+                node = node.children[index];
+            }
+        }
+        return node.isEnd;
+    }
+
+    public boolean startsWith(String prefix) {
+        Trie node = this;
+        for (char c : prefix.toCharArray()) {
+            int index = c - 'a';
+            if (node.children[index] == null) {
+                return false;
+            } else {
+                node = node.children[index];
+            }
+        }
+        return true;
+    }
+}
