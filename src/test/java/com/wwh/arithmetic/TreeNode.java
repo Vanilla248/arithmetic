@@ -1,9 +1,6 @@
 package com.wwh.arithmetic;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
+import java.util.*;
 
 public class TreeNode {
     int val;
@@ -78,6 +75,32 @@ class TreeNodeSolution {
             // 将原来的右子树连接到新的右子树末尾
             current.right = rightSubtree;
         }
+    }
+
+    // 从前序与中序遍历序列构造二叉树
+    Map<Integer,Integer> inorderNums = new HashMap<>();
+    public TreeNode buildTree(int[] preorder, int[] inorder) {
+        int size = preorder.length;
+        for(int i =0;i<size;i++){
+            inorderNums.put(inorder[i],i);
+        }
+        return recursiveBuildTree(preorder, 0,size-1,0,size-1);
+    }
+    // 根据两个数组的范围递归构造树
+    private TreeNode recursiveBuildTree(int[] preorder, int preorderLeft, int preorderRight, int inorderLeft, int inorderRight){
+
+        if(preorderLeft > preorderRight){
+            return null;
+        }
+
+        int rootNum = preorder[preorderLeft];
+        TreeNode root = new TreeNode(rootNum);
+        // 左右子树节点数量
+        int leftSize = inorderNums.get(rootNum) - inorderLeft;
+        root.left =  recursiveBuildTree(preorder, preorderLeft + 1, preorderLeft + leftSize, inorderLeft, inorderLeft + leftSize - 1);
+        root.right = recursiveBuildTree(preorder, preorderLeft + leftSize + 1, preorderRight, inorderLeft + leftSize + 1,inorderRight);
+
+        return root;
     }
 }
 // 字典树
