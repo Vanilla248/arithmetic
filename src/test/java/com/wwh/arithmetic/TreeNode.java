@@ -102,6 +102,67 @@ class TreeNodeSolution {
 
         return root;
     }
+
+    // 路径总和 III
+    int ans = 0;
+    long target;
+    public int pathSumMe(TreeNode root, int targetSum) {
+        target = targetSum;
+        if(root == null){
+            return 0;
+        }
+        preorder(root);
+        if(root.val == targetSum){
+            ans++;
+        }
+        return ans;
+    }
+    List<Integer> path = new ArrayList<>();
+    private void preorder(TreeNode root){
+        path.add(root.val);
+        if(root.left != null){
+            preorder(root.left);
+            calPath();
+            path.removeLast();
+        }
+        if(root.right != null){
+            preorder(root.right);
+            calPath();
+            path.removeLast();
+        }
+    }
+    private void calPath(){
+        long sum = 0;
+        for(int i=path.size()-1;i>=0;i--){
+            sum += path.get(i);
+            if(sum == target){
+                ans++;
+            }
+        }
+    }
+    // 路径总和 III 前缀和
+    public int pathSum(TreeNode root, int targetSum) {
+        Map<Long, Integer> prefix = new HashMap<>();
+        prefix.put(0L, 1);
+        return dfs(root, prefix, 0, targetSum);
+    }
+
+    public int dfs(TreeNode root, Map<Long, Integer> prefix, long curr, int targetSum) {
+        if (root == null) {
+            return 0;
+        }
+
+        int ret;
+        curr += root.val;
+
+        ret = prefix.getOrDefault(curr - targetSum, 0);
+        prefix.put(curr, prefix.getOrDefault(curr, 0) + 1);
+        ret += dfs(root.left, prefix, curr, targetSum);
+        ret += dfs(root.right, prefix, curr, targetSum);
+        prefix.put(curr, prefix.getOrDefault(curr, 0) - 1);
+
+        return ret;
+    }
 }
 // 字典树
 class Trie {
