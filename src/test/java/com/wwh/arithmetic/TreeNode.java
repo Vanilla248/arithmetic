@@ -24,6 +24,26 @@ class TreeNodeSolution {
         // 否则返回非空的那个子树的结果
         return left != null? left : right;
     }
+    TreeNode commonAncestor;
+    public TreeNode lowestCommonAncestor1(TreeNode root, TreeNode p, TreeNode q) {
+        f(root, p, q);
+        return commonAncestor;
+    }
+    private boolean f(TreeNode x, TreeNode p, TreeNode q){
+
+        if(x == null){
+            return false;
+        }
+
+        boolean lson = f(x.left, p, q);
+        boolean rson = f(x.right, p, q);
+
+        if((lson && rson) || ((x==p||x==q) && (lson || rson))){
+            commonAncestor = x;
+        }
+
+        return (lson || rson) || x == p || x == q;
+    }
     //二叉树的右视图
     public List<Integer> rightSideView(TreeNode root) {
         Deque<TreeNode> queue = new ArrayDeque<>();
